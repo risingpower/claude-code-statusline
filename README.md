@@ -30,13 +30,35 @@ resets 3:45pm              | resets mar 15, 3:45pm    | resets apr 1
 | Amber | Getting warm | 40-69% used (context) / 80-89% (rate limits) |
 | Red | Running low | 70%+ used (context) / 90%+ (rate limits) |
 
-## Requirements
+## Quick Install (paste into Claude Code)
+
+Open Claude Code and paste this prompt:
+
+```
+Install the statusline from https://github.com/risingpower/claude-code-statusline:
+
+1. Download statusline.sh from the repo to ~/.claude/statusline.sh and make it executable
+2. Add the statusline command to ~/.claude/settings.json (merge with existing settings, don't overwrite):
+   "statusline": { "command": ["bash", "~/.claude/statusline.sh"] }
+3. Extract my OAuth token for the usage bars:
+   - macOS: security find-generic-password -s "Claude Code-credentials" -w | jq -r '.claudeAiOauth.accessToken'
+   - Linux: jq -r '.claudeAiOauth.accessToken' ~/.claude/.credentials.json
+4. Add the token as CLAUDE_OAUTH_TOKEN export to my shell profile (~/.zshrc or ~/.bashrc)
+5. Confirm jq is installed (brew install jq / apt install jq if not)
+```
+
+That's it. Claude will handle the rest.
+
+## Manual Install
+
+<details>
+<summary>If you prefer to do it yourself</summary>
+
+### Requirements
 
 - [jq](https://jqlang.github.io/jq/) — JSON processor (`brew install jq` or `apt install jq`)
 - [curl](https://curl.se/) — for usage API calls (pre-installed on most systems)
 - Claude Code CLI
-
-## Install
 
 ### 1. Copy the script
 
@@ -90,6 +112,8 @@ jq -r '.claudeAiOauth.accessToken' ~/.claude/.credentials.json
 ```
 
 > **Note:** OAuth tokens expire and rotate. If the usage bars stop working, re-extract a fresh token. Without a token, lines 2-3 are simply hidden — line 1 and 4 always work.
+
+</details>
 
 ## Customisation
 
