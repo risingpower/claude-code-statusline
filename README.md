@@ -39,7 +39,7 @@ Install the statusline from https://github.com/risingpower/claude-code-statuslin
 
 1. Download statusline.sh from the repo to ~/.claude/statusline.sh and make it executable
 2. Add the statusline command to ~/.claude/settings.json (merge with existing settings, don't overwrite):
-   "statusline": { "command": ["bash", "~/.claude/statusline.sh"] }
+   "statusLine": { "type": "command", "command": "~/.claude/statusline.sh" }
 3. Extract my OAuth token for the usage bars:
    - macOS: security find-generic-password -s "Claude Code-credentials" -w | jq -r '.claudeAiOauth.accessToken'
    - Linux: jq -r '.claudeAiOauth.accessToken' ~/.claude/.credentials.json
@@ -81,8 +81,9 @@ Add to `~/.claude/settings.json`:
 
 ```json
 {
-  "statusline": {
-    "command": ["bash", "~/.claude/statusline.sh"]
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
   }
 }
 ```

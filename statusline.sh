@@ -9,7 +9,7 @@
 #   1. Copy this file to ~/.claude/statusline.sh
 #   2. chmod +x ~/.claude/statusline.sh
 #   3. Add to ~/.claude/settings.json:
-#        "statusline": { "command": ["bash", "~/.claude/statusline.sh"] }
+#        "statusLine": { "type": "command", "command": "~/.claude/statusline.sh" }
 #   4. (Optional) For usage bars, set CLAUDE_OAUTH_TOKEN in your shell profile.
 #      See README.md for how to obtain your token.
 
