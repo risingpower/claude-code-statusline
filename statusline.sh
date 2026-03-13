@@ -79,13 +79,9 @@ build_bar() {
 model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 perm_mode=$(echo "$input" | jq -r '.permission_mode // "default"')
 
-# Context window — Opus has 1M context, others 200k
-# Claude Code still reports 200k for Opus, so override based on model
-model_id=$(echo "$input" | jq -r '.model.id // ""')
+# Context window
 size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
-if echo "$model_id" | grep -qi 'opus'; then
-    size=1000000
-elif [ "$size" -eq 0 ] 2>/dev/null; then
+if [ "$size" -eq 0 ] 2>/dev/null; then
     size=200000
 fi
 
