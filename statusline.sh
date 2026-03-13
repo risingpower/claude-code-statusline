@@ -33,7 +33,7 @@ soft_amber='\033[38;2;210;170;90m'   # #D2AA5A - caution / consumption
 soft_red='\033[38;2;220;100;100m'    # #DC6464 - danger / critical
 reset='\033[0m'
 
-# Format token counts (e.g., 50k / 200k)
+# Format token counts (e.g., 50k, 200k, 1.0m)
 format_tokens() {
     local num=$1
     if [ "$num" -ge 1000000 ]; then
@@ -79,9 +79,15 @@ build_bar() {
 model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 perm_mode=$(echo "$input" | jq -r '.permission_mode // "default"')
 
-# Context window
-size=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
-[ "$size" -eq 0 ] 2>/dev/null && size=200000
+# Context window — Opus has 1M context, others 200k
+# Claude Code still reports 200k for Opus, so override based on model
+model_id=$(echo "$input" | jq -r '.model.id // ""')
+size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
+if echo "$model_id" | grep -qi 'opus'; then
+    size=1000000
+elif [ "$size" -eq 0 ] 2>/dev/null; then
+    size=200000
+fi
 
 # Token usage
 input_tokens=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')

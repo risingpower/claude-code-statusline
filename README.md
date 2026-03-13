@@ -8,13 +8,13 @@ A 4-line status bar for [Claude Code](https://docs.anthropic.com/en/docs/claude-
 ## What it shows
 
 ```
-Claude Opus 4.6 | 50k / 200k | 25% used 50,000 | 75% remain 150,000 | effort: high
+Claude Opus 4.6 | 50k / 1.0m | 5% used 50,000 | 95% remain 950,000 | effort: high
 current: ●●○○○○○○○○ 20%  | weekly: ●●●○○○○○○○ 30%  | extra: ●○○○○○○○○○ $1.20/$50.00
 resets 3:45pm              | resets mar 15, 3:45pm    | resets apr 1
 ▸▸ bypass permissions off (shift+tab to cycle)
 ```
 
-**Line 1** — Model name, context window tokens (used/total), percentage used & remaining with colour coding, current effort level
+**Line 1** — Model name, context window tokens (used/total), percentage used & remaining with colour coding, current effort level. Context window is model-aware: Opus shows 1M, others show 200k.
 
 **Line 2** — Rate limit progress bars: 5-hour (current), 7-day (weekly), and extra usage with dollar amounts (if enabled)
 
