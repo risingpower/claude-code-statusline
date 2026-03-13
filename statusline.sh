@@ -79,9 +79,12 @@ build_bar() {
 model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 perm_mode=$(echo "$input" | jq -r '.permission_mode // "default"')
 
-# Context window
+# Context window — Claude Code intermittently reports 200k for Opus (known issue)
+model_id=$(echo "$input" | jq -r '.model.id // ""')
 size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
-if [ "$size" -eq 0 ] 2>/dev/null; then
+if echo "$model_id" | grep -qi 'opus' && [ "$size" -lt 1000000 ]; then
+    size=1000000
+elif [ "$size" -eq 0 ] 2>/dev/null; then
     size=200000
 fi
 
